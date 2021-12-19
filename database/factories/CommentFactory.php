@@ -3,9 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-class PostFactory extends Factory
+class CommentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,12 +13,10 @@ class PostFactory extends Factory
      */
     public function definition()
     {
-        $name=$this->faker->name;
         return [
-            'name'=>$name,
-            'description'=>$this->faker->text,
+            'comment'=>$this->faker->text,
+            'post_id'=>\App\Models\Post::factory()->create()->id,
             'user_id'=>\App\Models\User::factory()->create()->id,
-            'slug'=>Str::slug($name,'-')
         ];
     }
 }
