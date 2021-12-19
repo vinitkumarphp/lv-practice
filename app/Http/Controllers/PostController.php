@@ -15,7 +15,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+
+        $posts=Post::latest()->take(5)->get();
+
+        return view('post.index',compact('posts'));
     }
 
     /**
@@ -26,6 +29,7 @@ class PostController extends Controller
     public function create()
     {
         //
+        return view('post.create');
     }
 
     /**
@@ -37,6 +41,14 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         //
+        //dd($request);
+      $post =  Post::create($request->only('name','slug','description'));
+
+      if ($post){
+        return  redirect()->route('post.index')->with(['class'=>'success','message'=>'Post added successfully']);
+//          redirect()->with(['class'=>'success','message'=>'Post added successfully']);
+
+      }
     }
 
     /**
